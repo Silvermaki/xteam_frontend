@@ -1,5 +1,6 @@
-Makoto's App!
-This is a dummy app made for X-Team Job Application.
+# xteam_frontend
+Welcome to Makoto's App!
+This is the frontend of a dummy app I made for my X-Team Job Application.
 
-Run npm install
-Run npm start
+Run 'npm install' to install dependencies
+Run 'npm start' to run the application
