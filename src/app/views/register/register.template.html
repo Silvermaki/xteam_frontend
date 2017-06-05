@@ -1,0 +1,97 @@
+<!-- Register Box-->
+<div class="middle-box text-center loginscreen animated fadeInDown" ng-controller="RegisterController as registerController">
+    <div>
+        <img class = "extra-margin-top logo" src="./assets/images/logo.png">
+        <h3 class="extra-margin-top">Register to Makoto's App</h3>
+        <h2>Sign up Form</h2>
+        <!-- Register Form (Model Drive Form)-->
+        <form [formGroup]="register_form" class="m-t" role="form" novalidate="novalidate"><!-- Register Form -->
+            <!-- Username Input -->
+            <div class="form-group">
+               <div class = "input-group" [ngClass]="{'has-error':(!register_form.controls['username'].valid && submitRegister)||usernameExists, 'has-success':register_form.controls['username'].valid && submitRegister && !usernameExists}">
+                   <input [formControl]="register_form.controls['username']" type="text" class="form-control" placeholder="Username" maxlength="25" (blur) = "verifyUsernameExists()">
+                   <span class="input-group-addon"><i class="fa fa-user"></i></span>
+               </div>
+               <p class="text-danger" *ngIf="usernameExists">Username is already in use.</p>
+           </div>
+           <!-- End Username Input -->
+           <!-- Email Input -->
+           <div class="form-group">
+               <div class = "input-group" [ngClass]="{'has-error':(!register_form.controls['email'].valid && submitRegister)||emailExists, 'has-success':register_form.controls['email'].valid && submitRegister && !emailExists}">
+                   <input [formControl]="register_form.controls['email']" type="email" class="form-control" placeholder="Email" maxlength="100" (blur) = "verifyEmailExists()">
+                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+               </div>
+               <p class="text-danger" *ngIf="register_form.controls['email'].hasError('email') && submitRegister">Email format is not valid.</p>
+               <p class="text-danger" *ngIf="emailExists">Email is already in use.</p>
+           </div>
+           <!-- End Email Input -->
+           <!-- Password Input -->
+           <div class="form-group">
+               <div class = "input-group" [ngClass]="{'has-error':!register_form.controls['password'].valid && submitRegister, 'has-success':register_form.controls['password'].valid && submitRegister}">
+                   <input [formControl]="register_form.controls['password']" type="password" class="form-control" placeholder="Password (8 caracters)" maxlength="25">
+                   <span class="input-group-addon"><i class="fa fa-key"></i></span>
+               </div>
+               <p class="text-danger" *ngIf="register_form.controls['password'].hasError('minlength') && submitRegister">Password must be at least 8 caracters long.</p>
+           </div>
+           <!-- End Password Input -->
+           <!-- Verify Password Input -->
+           <div class="form-group">
+               <div class = "input-group" [ngClass]="{'has-error':(!register_form.controls['confirm_password'].valid || register_form.hasError('mismatchedPasswords')) && submitRegister, 'has-success':register_form.controls['confirm_password'].valid && submitRegister && !register_form.hasError('mismatchedPasswords')}">
+                   <input [formControl]="register_form.controls['confirm_password']" type="password" class="form-control" placeholder="Confirm Password" maxlength="25">
+                   <span class="input-group-addon"><i class="fa fa-key"></i></span>
+               </div>
+               <p class="text-danger" *ngIf="register_form.hasError('mismatchedPasswords') && submitRegister && register_form.controls['password'].valid">Passwords must match.</p>
+           </div>
+           <!-- End Verify Password Input -->
+           <!-- Scope Input -->
+           <div class="form-group">
+               <div class = "input-group" [ngClass]="{'has-error':!register_form.controls['scope'].valid && submitRegister, 'has-success':register_form.controls['scope'].valid && submitRegister}">
+                   <select [formControl]="register_form.controls['scope']" class="form-control">
+                    <option value="" disabled="true" [selected]="true">Select Account Scope</option>
+                      <option>Requester</option>
+                      <option>Reviewer</option>
+                   </select>
+                   <span class="input-group-addon"><i class="fa fa-key"></i></span>
+               </div>
+               <p class="text-danger" *ngIf="register_form.hasError('mismatchedPasswords') && submitRegister && register_form.controls['password'].valid">Passwords must match.</p>
+           </div>
+           <!-- End Scope Input -->
+           <!-- Terms and Conditions -->
+           <label>Once you create an account you accept the <a (click)="terms_conditions_modal.show()">Terms and Conditions</a> for Makoto's App.</label>
+           <!-- Submit register form -->
+           <button  (click)="register()" class="extra-margin-top btn btn-primary block full-width m-b less-padding" [ladda]="loader" data-style="slide-left"><strong>Create Account</strong></button>
+
+           <p class="text-muted text-center">¿Already have an account?</p>
+           <a class="btn btn-sm btn-white btn-block" [routerLink]="['/login']">Sign in</a>
+       </form>
+       <!-- End Register Form -->
+       <p class="m-t"><strong>Copyright</strong> Makoto &copy; 2017</p>
+   </div>
+
+</div>
+<!-- End Register Box -->
+
+<!-- Terms and Conditions Modal -->
+<div bsModal #terms_conditions_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button #closeModal3 type="button" class="close pull-right" (click)="terms_conditions_modal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-center"><strong>Terms and Conditions</strong></h2>
+                <h4 class="text-justify">This App is a dummy application that was made for my X-Team job application. It was requested by X-Team's Ambassador Caleb Brown (really nice guy :D). It has 2 basic scopes, which is the Requester and the Reviewer. The Requester submits Requests which are later Reviewed by the Reviewer. In order to test full functionality you will have to make one of each kind of user. If you have any questions or there is something not working properly, don't hesitate to contact me.</h4>
+                <div class="text-center">
+                    <a (click)="terms_conditions_modal.hide()" class="btn btn-warning custom-wizard-button"><i class="fa fa-arrow-left"></i> Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Terms and Conditions Modal -->
+
+<!-- Side Art -->
+<img class = "right-corner animated fadeInDown" src="./assets/images/side_right.png">
+<img class = "left-corner animated fadeInDown" src="./assets/images/side_left.png">

@@ -1,0 +1,34 @@
+// Google Fonts
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+
+// Variables, Mixins
+@import "imports/variables";
+@import "imports/mixins";
+
+// Elements
+@import "imports/typography";
+@import "imports/navigation";
+@import "imports/top_navigation";
+@import "imports/buttons";
+@import "imports/badges_labels";
+@import "imports/elements";
+@import "imports/sidebar";
+@import "imports/base";
+@import "imports/pages";
+@import "imports/metismenu";
+@import "imports/spinners";
+@import "imports/rtl";
+@import "imports/media";
+@import "imports/custom";
+
+// Clear layout on print mode
+@media print {
+  nav.navbar-static-side {
+    display: none;
+  }
+  body { overflow: visible !important; }
+
+  #page-wrapper {
+    margin: 0;
+  }
+}

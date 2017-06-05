@@ -1,0 +1,40 @@
+<!-- Navbar -->
+<nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+    <ul class="nav metismenu" id="side-menu">
+      <!-- Navbar Header-->
+      <li class="nav-header">
+        <div class="profile-element">
+          <img class = "logo" src="./assets/images/logo.png">
+          <span class="text-center clear extra-margin-top">
+            <span class="block m-t-xs white-text"> <strong class="font-bold">Welcome to Makoto's App</strong> </span>
+          </span>
+          <span class="text-center clear extra-margin-top">
+            <span class="block m-t-xs white-text"> <strong class="font-bold">Logged in as:</strong> </span>
+            <span class="block m-t-xs white-text"> <strong class="font-bold">{{userName}}</strong> </span>
+            <span class="block m-t-xs white-text"> <strong class="font-bold">Account Type: {{userScope}}</strong> </span>
+          </span>
+        </div>
+        <div class="logo-element">
+         Menu
+        </div>
+      </li>
+      <!-- End Navbar Header -->
+      <!-- Navbar Items -->
+      <li  [ngClass]="{active: activeRoute('home')}">
+        <a [routerLink]="['/dashboard/home']"><i class="fa fa-comment"></i> <span class="nav-label">Notifications</span></a>
+      </li>
+      <li *ngIf="userScope=='Requester'" [ngClass]="{active: activeRoute('new_request')}">
+        <a [routerLink]="['/dashboard/new_request']"><i class="fa fa-plus"></i> <span class="nav-label">New Request</span></a>
+      </li>
+      <li *ngIf="userScope=='Requester'" [ngClass]="{active: activeRoute('my_requests')}">
+        <a [routerLink]="['/dashboard/my_requests']"><i class="fa fa-thumbs-up"></i> <span class="nav-label">My Requests</span></a>
+      </li>
+      <li *ngIf="userScope=='Reviewer'" [ngClass]="{active: activeRoute('review')}">
+        <a [routerLink]="['/dashboard/review']"><i class="fa fa-pencil"></i> <span class="nav-label">Review Requests</span></a>
+      </li>
+      <!-- End Navbar Items -->
+    </ul>
+  </div>
+</nav>
+<!-- End Navbar -->
